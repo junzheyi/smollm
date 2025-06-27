@@ -1,0 +1,33 @@
+datasets:
+#Splitting: 14% text, 36% video 50% images
+#all / first: / last: / random:
+  - json_path: /fsx/miquel/apollo-dataset/llava-video-178k/llama_video_data_all_configs.json
+    # 1232870 samples, 0.0% path validation failures
+    sampling_strategy: "random:33%"
+    name: LlamaVideo178k
+    path: llava-video-178k
+    modality: video
+  - json_path: /fsx/miquel/apollo-dataset/mammoth/mammoth_onevision_multiimaged_capped_to_6_images.json
+    # 476182 samples, 0.0% path validation failures
+    sampling_strategy: "random:41%"
+    name: mammoth-onevision-multiimage-cap6
+    path: mammoth
+    modality: image
+  - json_path: /fsx/miquel/apollo-dataset/mammoth/mammoth_onevision_image.json
+    # 1024063 samples, 0.0% path validation failures
+    sampling_strategy: "random:36%"
+    name: mammoth-onevision-image
+    path: mammoth
+    modality: image
+  - json_path: /fsx/miquel/apollo-dataset/mammoth/mammoth_onevision_text.json
+    # 103238 samples, 0.0% path validation failures
+    sampling_strategy: "all"
+    name: mammoth-onevision-text
+    path: mammoth
+    modality: text
+  - json_path: /fsx/miquel/apollo-dataset/mammoth/mammoth_singleimage_text.json
+    # 921269 samples, 0.0% path validation failures
+    sampling_strategy: "random:5%"
+    name: mammoth-singleimage-text
+    path: mammoth
+    modality: text

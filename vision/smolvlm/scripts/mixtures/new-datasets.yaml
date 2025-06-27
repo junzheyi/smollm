@@ -1,0 +1,282 @@
+datasets:
+- json_path: /fsx/miquel/apollo-dataset/finevideo/finevideo_final_qa.json
+  # 685 samples, 0.0% path validation failures
+  sampling_strategy: "random:33%"
+  name: finevideoqa
+  path: finevideo
+  modality: video
+  quality: '5'
+
+#Video Star blocks
+- json_path: /fsx/miquel/apollo-dataset/video-star/kinetics700_tune_under_minute.json
+  # 1055373 samples, 0.0% path validation failures
+  sampling_strategy: "random:33%"
+  name: videostar-kinetics700
+  path: video-star
+  modality: video
+- json_path: /fsx/miquel/apollo-dataset/video-star/starb_tune_under_minute.json
+  # 134091 samples, 0.0% path validation failures
+  sampling_strategy: "random:33%"
+  name: videostar-starb
+  path: video-star
+  modality: video
+- json_path: /fsx/miquel/apollo-dataset/video-star/finediving_tune_under_minute.json
+  # 3336 samples, 0.0% path validation failures
+  sampling_strategy: "random:33%"
+  name: videostar-finediving
+  path: video-star
+  modality: video
+
+
+#Mammoth blocks
+- json_path: /fsx/miquel/apollo-dataset/mammoth/mammoth_onevision_multiimaged_capped_to_5_images.json
+  # 455014 samples, 0.0% path validation failures
+  sampling_strategy: "random:33%"
+  name: mammoth-onevision-multiimage-cap5
+  path: mammoth
+  modality: image
+- json_path: /fsx/miquel/apollo-dataset/mammoth/mammoth_onevision_multiimaged_capped_to_6_images.json
+  # 476182 samples, 0.0% path validation failures
+  sampling_strategy: "random:33%"
+  name: mammoth-onevision-multiimage-cap6
+  path: mammoth
+  modality: image
+- json_path: /fsx/miquel/apollo-dataset/mammoth/mammoth_onevision_video.json
+  # 315453 samples, 0.0% path validation failures
+  sampling_strategy: "random:33%"
+  name: mammoth-onevision-video
+  path: mammoth
+  modality: video
+- json_path: /fsx/miquel/apollo-dataset/mammoth/mammoth_onevision_image.json
+  # 1024063 samples, 0.0% path validation failures
+  sampling_strategy: "random:33%"
+  name: mammoth-onevision-image
+  path: mammoth
+  modality: image
+- json_path: /fsx/miquel/apollo-dataset/mammoth/mammoth_onevision_image_without_llava_onevision.json
+  # 836082 samples, 0.0% path validation failures
+  sampling_strategy: "random:33%"
+  name: mammoth-onevision-image-no-llava-onevision
+  path: mammoth
+  modality: image
+  
+- json_path: /fsx/miquel/apollo-dataset/mammoth/mammoth_onevision_text.json
+  # 103238 samples, 0.0% path validation failures
+  sampling_strategy: "random:33%"
+  name: mammoth-onevision-text
+  path: mammoth
+  modality: text
+- json_path: /fsx/miquel/apollo-dataset/mammoth/mammoth_singleimage_image.json
+  # 9219703 samples, 0.0% path validation failures
+  sampling_strategy: "random:33%"
+  name: mammoth-singleimage-image
+  path: mammoth
+  modality: image
+- json_path: /fsx/miquel/apollo-dataset/mammoth/mammoth_singleimage_text.json
+  # 921269 samples, 0.0% path validation failures
+  sampling_strategy: "random:33%"
+  name: mammoth-singleimage-text
+  path: mammoth
+  modality: text
+
+#Mammoth video sliced
+- json_path: /fsx/miquel/apollo-dataset/mammoth/mammoth_onevision_video_upto1minute.json
+  # 301540 samples, 0.0% path validation failures
+  sampling_strategy: "random:33%"
+  name: mammoth-video-uptooneminute
+  path: mammoth
+  modality: video
+- json_path: /fsx/miquel/apollo-dataset/mammoth/mammoth_onevision_video_1minto4min.json
+  # 12667 samples, 0.0% path validation failures
+  sampling_strategy: "random:33%"
+  name: mammoth-video-1minto4min
+  path: mammoth
+  modality: video
+- json_path: /fsx/miquel/apollo-dataset/mammoth/mammoth_onevision_video_plus4min.json
+  # 1246 samples, 0.0% path validation failures
+  sampling_strategy: "random:33%"
+  name: mammoth-video-plus4min
+  path: mammoth
+  modality: video
+
+#Llava Video sliced
+- json_path: /fsx/miquel/apollo-dataset/llava-video-178k/llama_video_data_all_configs_2_3_m.json
+  # 234419 samples, 0.0% path validation failures
+  sampling_strategy: "random:33%"
+  name: LlamaVideo178k-2-3-m
+  path: llava-video-178k
+  modality: video
+- json_path: /fsx/miquel/apollo-dataset/llava-video-178k/llama_video_data_all_configs_1_2_m.json
+  # 246086 samples, 0.0% path validation failures
+  sampling_strategy: "random:33%"
+  name: LlamaVideo178k-1-2-m
+  path: llava-video-178k
+  modality: video
+- json_path: /fsx/miquel/apollo-dataset/llava-video-178k/llama_video_data_all_configs_0_30_s.json
+  # 617871 samples, 0.0% path validation failures
+  sampling_strategy: "random:33%"
+  name: LlamaVideo178k-0-30-s
+  path: llava-video-178k
+  modality: video
+- json_path: /fsx/miquel/apollo-dataset/llava-video-178k/llama_video_data_llava_hound_open_ended.json
+  # 255000 samples, 0.0% path validation failures
+  sampling_strategy: "random:33%"
+  name: LlamaVideo178k-hound-open-ended
+  path: llava-video-178k
+  modality: video
+
+# M4 Multiimage
+- json_path: /fsx/miquel/apollo-dataset/m4-instruct-data/m4_instruct_multiimage_fixed_trimmed_less_5_images_sample.json
+  # 349832 samples, 0.0% path validation failures
+  sampling_strategy: "all"
+  name: m4_instruct_multiimage
+  path: m4-instruct-data
+  modality: multiimage
+  source: mammoth:images
+  quality: '5'
+  category: All
+
+# VRIPT
+- json_path: /fsx/miquel/apollo-dataset/vript/vript_long_avg_11s.json
+    # 400040 samples, 0.0% path validation failures
+  sampling_strategy: "all"
+  name: vript_long
+  modality: video
+  path: vript
+  source: vript
+  category: All
+  quality: '2'
+  duration: medium
+- json_path: /fsx/miquel/apollo-dataset/vript/vript_short_avg_5s.json
+    # 8776 samples, 0.0% path validation failures
+  sampling_strategy: "all"
+  name: vript_short
+  modality: video
+  path: vript
+  source: vript
+  quality: '2'
+  duration: short
+  category: All
+
+# VISTA400K
+- json_path: /fsx/miquel/apollo-dataset/vista-400k/vista400k-event_relationship_mcq.json-avg-34seconds.json
+    # 28427 samples, 0.0% path validation failures
+  sampling_strategy: "all"
+  name: vista400k:event_relationship_mcq
+  modality: video
+  path: vista-400k
+  duration: short
+  source: vista400k:event_relationship_mcq
+  category: All
+- json_path: /fsx/miquel/apollo-dataset/vista-400k/vista400k-event_relationship_qa.json-avg-34seconds.json
+    # 28427 samples, 0.0% path validation failures
+  sampling_strategy: "all"
+  name: vista400k:event_relationship_qa
+  modality: video
+  path: vista-400k
+  duration: short
+  source: vista400k:event_relationship_qa
+  category: All
+- json_path: /fsx/miquel/apollo-dataset/vista-400k/vista400k-hr_video_grid_mcq.json-avg-3seconds.json
+    # 29951 samples, 0.0% path validation failures
+  sampling_strategy: "all"
+  name: vista400k:hr_video_grid_mcq
+  modality: video
+  path: vista-400k
+  source: vista400k:hr_video_grid_mcq
+  duration: short
+  category: All
+- json_path: /fsx/miquel/apollo-dataset/vista-400k/vista400k-hr_video_grid_qa.json-avg-3seconds.json
+    # 29950 samples, 0.0% path validation failures
+  sampling_strategy: "all"
+  name: vista400k:hr_video_grid_qa
+  modality: video
+  path: vista-400k
+  source: vista400k:hr_video_grid_qa
+  duration: short
+  category: All
+- json_path: /fsx/miquel/apollo-dataset/vista-400k/vista400k-long_video_caption.json-avg-34seconds.json
+    # 58617 samples, 0.0% path validation failures
+  sampling_strategy: "all"
+  name: vista400k:long_video_caption
+  modality: video
+  path: vista-400k
+  source: vista400k:long_video_caption
+  duration: short
+  category: All
+- json_path: /fsx/miquel/apollo-dataset/vista-400k/vista400k-spatial_niah_mcq.json-avg-10seconds.json
+    # 29981 samples, 0.0% path validation failures
+  sampling_strategy: "all"
+  name: vista400k:spatial_niah_mcq
+  modality: video
+  path: vista-400k
+  source: vista400k:spatial_niah_mcq
+  duration: short
+  category: All
+- json_path: /fsx/miquel/apollo-dataset/vista-400k/vista400k-spatial_niah_qa.json-avg-10seconds.json
+    # 29997 samples, 0.0% path validation failures
+  sampling_strategy: "all"
+  name: vista400k:spatial_niah_qa
+  modality: video
+  path: vista-400k
+  source: vista400k:spatial_niah_qa
+  duration: short
+  category: All
+- json_path: /fsx/miquel/apollo-dataset/vista-400k/vista400k-spatiotemporal_niah_mcq.json-avg-90seconds.json
+    # 28239 samples, 0.0% path validation failures
+  sampling_strategy: "all"
+  name: vista400k:spatialtemporal_niah_mcq
+  modality: video
+  path: vista-400k
+  source: vista400k:spatialtemporal_niah_mcq
+  duration: short
+  category: All
+- json_path: /fsx/miquel/apollo-dataset/vista-400k/vista400k-temporal_niah_mcq.json-avg-68seconds.json
+    # 29876 samples, 0.0% path validation failures
+  sampling_strategy: "all"
+  name: vista400k:temporal_niah_mcq
+  modality: video
+  path: vista-400k
+  source: vista400k:temporal_niah_mcq
+  duration: short
+  category: All
+- json_path: /fsx/miquel/apollo-dataset/vista-400k/vista400k-temporal_niah_qa.json-avg-67seconds.json
+    # 27591 samples, 0.0% path validation failures
+  sampling_strategy: "all"
+  name: vista400k:temporal_niah_qa
+  modality: video
+  path: vista-400k
+  source: vista400k:temporal_niah_qa
+  duration: short
+  category: All
+- json_path: /fsx/miquel/apollo-dataset/vista-400k/vista400k-two_needle_niah_qa.json-avg-112seconds.json
+    # 52349 samples, 0.0% path validation failures
+  sampling_strategy: "all"
+  name: vista400k:two_needle_niah_qa
+  modality: video
+  path: vista-400k
+  source: vista400k:two_needle_niah_qa
+  duration: short
+  category: All
+
+# Moviechat
+- json_path:  /fsx/miquel/apollo-dataset/moviechat/moviechat_descriptionqa.json
+    # 795 samples, 0.0% path validation failures
+  sampling_strategy: "all"
+  name: moviechat:descriptions
+  modality: video
+  path: moviechat
+  source: moviechat:descriptions
+  duration: long #avg 447s
+  category: All
+
+# ShareGPT4Video
+- json_path: /fsx/miquel/apollo-dataset/ShareGPT4Video/sharegpt4video_checked_qa.json
+    # 28221 samples, 0.0% path validation failures
+  sampling_strategy: "all"
+  name: ShareGPT4Video
+  modality: video
+  path: ShareGPT4Video
+  source: ShareGPT4Video
+  duration: short #avg 28s
+  category: all

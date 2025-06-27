@@ -1,0 +1,29 @@
+datasets:
+#Llama video: 1232870 samples
+#Onevision images: 2793166 samples
+#Onevision text: 929787 samples
+#Multiimage: 349832
+
+#Splitting: 14% text, 36% video 50% images
+#all / first: / last: / random:
+  - json_path: /fsx/miquel/apollo-dataset/llava-video-178k/llama_video_data_all_configs.json
+    sampling_strategy: "all"
+    name: LlamaVideo178k
+    path: llava-video-178k
+    modality: video
+  - json_path: /fsx/miquel/apollo-dataset/llava-onevision/lmms-lab_LLaVA-OneVision-Data_images.json
+    sampling_strategy: "random:49%"
+    name: LlavaOneVision-Image
+    modality: image
+    path: llava-onevision
+  - json_path: /fsx/miquel/apollo-dataset/llava-onevision/lmms-lab_LLaVA-OneVision-Data_text.json
+    sampling_strategy: "random:51%"
+    name: LlavaOneVision-Text
+    modality: text
+    path: llava-onevision
+  - json_path: /fsx/miquel/apollo-dataset/m4-instruct-data/m4_instruct_multiimage_fixed_trimmed_less_5_images_sample.json
+    sampling_strategy: "all"
+    name: m4_instruct_multiimage
+    modality: image
+    path: m4-instruct-data
+
