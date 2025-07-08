@@ -2,11 +2,7 @@
 
 Welcome to Smol Models, a family of efficient and lightweight AI models from Hugging Face. Our mission is to create powerful yet compact models, for text and vision, that can run effectively on-device while maintaining strong performance.
 
-**News 📰**
-- **Introducing [FineMath](https://huggingface.co/datasets/HuggingFaceTB/finemath), the best public math pretraining dataset 🚀**
-- Added continual pretraining code for Llama 3.2 3B on FineMath & FineWeb-Edu with `nanotron`
-
-## SmolLM3 (Language Model)
+## [NEW] SmolLM3 (Language Model)
 ![image](https://github.com/user-attachments/assets/f1b76d3b-af2b-4218-91b3-4ce815bdf0a8)
 
 Our 3B model outperforms Llama 3.2 3B and Qwen2.5 3B while staying competitive with larger 4B alternatives (Qwen3 & Gemma3). Beyond the performance numbers, we're sharing exactly how we built it using public datasets and training frameworks.
@@ -43,16 +39,38 @@ smollm/
 
 ## Getting Started
 
-### SmolLM2
+### SmolLM3
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-checkpoint = "HuggingFaceTB/SmolLM2-1.7B-Instruct"
-tokenizer = AutoTokenizer.from_pretrained(checkpoint)
-model = AutoModelForCausalLM.from_pretrained(checkpoint)
+model_name = "HuggingFaceTB/SmolLM3-3B"
+device = "cuda"  # for GPU usage or "cpu" for CPU usage
 
-messages = [{"role": "user", "content": "Write a 100-word article on 'Benefits of Open-Source in AI research"}]
-input_text = tokenizer.apply_chat_template(messages, tokenize=False)
+# load the tokenizer and the model
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+).to(device)
+
+# prepare the model input
+prompt = "Give me a brief explanation of gravity in simple terms."
+messages_think = [
+    {"role": "user", "content": prompt}
+]
+
+text = tokenizer.apply_chat_template(
+    messages_think,
+    tokenize=False,
+    add_generation_prompt=True,
+)
+model_inputs = tokenizer([text], return_tensors="pt").to(model.device)
+
+# Generate the output
+generated_ids = model.generate(**model_inputs, max_new_tokens=32768)
+
+# Get and decode the output
+output_ids = generated_ids[0][len(model_inputs.input_ids[0]) :]
+print(tokenizer.decode(output_ids, skip_special_tokens=True))
 ```
 
 ### SmolVLM
