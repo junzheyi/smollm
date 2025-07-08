@@ -3,7 +3,7 @@
 Welcome to Smol Models, a family of efficient and lightweight AI models from Hugging Face. Our mission is to create powerful yet compact models, for text and vision, that can run effectively on-device while maintaining strong performance.
 
 ## [NEW] SmolLM3 (Language Model)
-![image](https://github.com/user-attachments/assets/f1b76d3b-af2b-4218-91b3-4ce815bdf0a8)
+![image](https://github.com/user-attachments/assets/2bf61ea2-8d2e-426b-ba40-0242d34325d2)
 
 Our 3B model outperforms Llama 3.2 3B and Qwen2.5 3B while staying competitive with larger 4B alternatives (Qwen3 & Gemma3). Beyond the performance numbers, we're sharing exactly how we built it using public datasets and training frameworks.
 
@@ -20,7 +20,7 @@ Summary:
 - **Multilingual support** for 6 languages: English, French, Spanish, German, Italian, and Portuguese
 - **Long context** up to 128k with NoPE and using YaRN
 
-![image](https://github.com/user-attachments/assets/2bf61ea2-8d2e-426b-ba40-0242d34325d2)
+![image](https://github.com/user-attachments/assets/f1b76d3b-af2b-4218-91b3-4ce815bdf0a8)
 
 ## 👁️ SmolVLM (Vision Language Model)
 [SmolVLM](https://huggingface.co/HuggingFaceTB/SmolVLM-Instruct) is our compact multimodal model that can:
