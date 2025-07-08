@@ -6,13 +6,20 @@ Welcome to Smol Models, a family of efficient and lightweight AI models from Hug
 - **Introducing [FineMath](https://huggingface.co/datasets/HuggingFaceTB/finemath), the best public math pretraining dataset 🚀**
 - Added continual pretraining code for Llama 3.2 3B on FineMath & FineWeb-Edu with `nanotron`
 
-## 💬 SmolLM2 (Language Model)
-[SmolLM2](https://huggingface.co/collections/HuggingFaceTB/smollm2-6723884218bcda64b34d7db9) is our family of compact language models available in three sizes:
-- **SmolLM2-135M**: Ultra-lightweight model for basic text tasks
-- **SmolLM2-360M**: Balanced model for general use
-- **SmolLM2-1.7B**: Our most capable language model, available at **🤏 SmolLM2-1.7B-Instruct** [here](https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct).
+## SmolLM3 (Language Model)
+Our 3B model outperforms Llama 3.2 3B and Qwen2.5 3B while staying competitive with larger 4B alternatives (Qwen3 & Gemma3). Beyond the performance numbers, we're sharing exactly how we built it using public datasets and training frameworks.
 
-All models have instruction-tuned versions optimized for assistant-like interactions. Find them in our [SmolLM2 collection](https://huggingface.co/collections/HuggingFaceTB/smollm2-6723884218bcda64b34d7db9).
+Ressources:
+- [SmolLM3-Base](https://hf.co/HuggingFaceTB/SmolLM3-3B-Base)
+- [SmolLM3](https://hf.co/HuggingFaceTB/SmolLM3-3B)
+- [blog](https://hf.co/smollm3)
+
+Summary:
+- **3B model** trained on 11T tokens, SoTA at the 3B scale and competitive with 4B models
+- **Fully open model**, open weights + full training details including public data mixture and training configs
+- **Instruct model** with **dual mode reasoning,** supporting think/no_think modes
+- **Multilingual support** for 6 languages: English, French, Spanish, German, Italian, and Portuguese
+- **Long context** up to 128k with NoPE and using YaRN
 
 ## 👁️ SmolVLM (Vision Language Model)
 [SmolVLM](https://huggingface.co/HuggingFaceTB/SmolVLM-Instruct) is our compact multimodal model that can:
@@ -23,7 +30,7 @@ All models have instruction-tuned versions optimized for assistant-like interact
 ## Repository Structure
 ```
 smollm/
-├── text/               # SmolLM2 related code and resources
+├── text/               # SmolLM3/2/1 related code and resources
 ├── vision/            # SmolVLM related code and resources
 └── tools/             # Shared utilities and inference tools
     ├── smol_tools/    # Lightweight AI-powered tools
@@ -71,11 +78,13 @@ messages = [
 ## Resources
 
 ### Documentation
-- [SmolLM2 Documentation](text/README.md)
+
+- [SmolLM3 Documentation](text/README.md)
 - [SmolVLM Documentation](vision/README.md)
 - [Local Inference Guide](tools/README.md)
 
 ### Pretrained Models
+- [SmolLM3 Models Collection](https://huggingface.co/collections/HuggingFaceTB)
 - [SmolLM2 Models Collection](https://huggingface.co/collections/HuggingFaceTB/smollm2-6723884218bcda64b34d7db9)
 - [SmolVLM Model](https://huggingface.co/HuggingFaceTB/SmolVLM-Instruct)
 
