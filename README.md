@@ -12,6 +12,7 @@ Ressources:
 - [SmolLM3-Base](https://hf.co/HuggingFaceTB/SmolLM3-3B-Base)
 - [SmolLM3](https://hf.co/HuggingFaceTB/SmolLM3-3B)
 - [blog](https://hf.co/smollm3)
+- [SmolLM3 Models Collection](https://huggingface.co/collections/HuggingFaceTB/smollm3-pretraining-datasets-685a7353fdc01aecde51b1d9)
 
 Summary:
 - **3B model** trained on 11T tokens, SoTA at the 3B scale and competitive with 4B models
@@ -105,11 +106,12 @@ messages = [
 - [Local Inference Guide](tools/README.md)
 
 ### Pretrained Models
-- [SmolLM3 Models Collection](https://huggingface.co/collections/HuggingFaceTB)
+- [SmolLM3 Models Collection](https://huggingface.co/collections/HuggingFaceTB/smollm3-686d33c1fdffe8e635317e23)
 - [SmolLM2 Models Collection](https://huggingface.co/collections/HuggingFaceTB/smollm2-6723884218bcda64b34d7db9)
 - [SmolVLM Model](https://huggingface.co/HuggingFaceTB/SmolVLM-Instruct)
 
 ### Datasets
+- [SmolLM3 Pretraining dataset](https://huggingface.co/collections/HuggingFaceTB/smollm3-pretraining-datasets-685a7353fdc01aecde51b1d9)
 - [SmolTalk](https://huggingface.co/datasets/HuggingFaceTB/smoltalk) - Our instruction-tuning dataset
 - [FineMath](https://huggingface.co/datasets/HuggingFaceTB/finemath) - Mathematics pretraining dataset
 - [FineWeb-Edu](https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu) - Educational content pretraining dataset
