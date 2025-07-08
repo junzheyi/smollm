@@ -20,6 +20,8 @@ Summary:
 - **Multilingual support** for 6 languages: English, French, Spanish, German, Italian, and Portuguese
 - **Long context** up to 128k with NoPE and using YaRN
 
+![image](https://github.com/user-attachments/assets/2bf61ea2-8d2e-426b-ba40-0242d34325d2)
+
 ## 👁️ SmolVLM (Vision Language Model)
 [SmolVLM](https://huggingface.co/HuggingFaceTB/SmolVLM-Instruct) is our compact multimodal model that can:
 - Process both images and text and perform tasks like visual QA, image description, and visual storytelling
