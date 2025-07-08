@@ -11,8 +11,7 @@ Our 3B model outperforms Llama 3.2 3B and Qwen2.5 3B while staying competitive w
 Ressources:
 - [SmolLM3-Base](https://hf.co/HuggingFaceTB/SmolLM3-3B-Base)
 - [SmolLM3](https://hf.co/HuggingFaceTB/SmolLM3-3B)
-- [blog](https://hf.co/smollm3)
-- [SmolLM3 Models Collection](https://huggingface.co/collections/HuggingFaceTB/smollm3-pretraining-datasets-685a7353fdc01aecde51b1d9)
+- [blog](https://hf.co/blog/smollm3)
 
 Summary:
 - **3B model** trained on 11T tokens, SoTA at the 3B scale and competitive with 4B models
