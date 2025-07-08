@@ -3,10 +3,14 @@
 Welcome to Smol Models, a family of efficient and lightweight AI models from Hugging Face. Our mission is to create powerful yet compact models, for text and vision, that can run effectively on-device while maintaining strong performance.
 
 **News 📰**
-- **Introducing [FineMath](https://huggingface.co/datasets/HuggingFaceTB/finemath), the best public math pretraining dataset 🚀**
-- Added continual pretraining code for Llama 3.2 3B on FineMath & FineWeb-Edu with `nanotron`
+- SmolLM3 is here! Check out our [SmolLM3 collection](https://huggingface.co/HuggingFaceTB/SmolLM3-3B) for the latest models.
 
-## 💬 SmolLM2 (Language Model)
+## 🌐 SmolLM3 (Multilingual Language Model)
+[SmolLM3](https://huggingface.co/HuggingFaceTB/SmolLM3-3B) is our latest **multilingual** model:
+- **[SmolLM3-3B-Base](https://huggingface.co/HuggingFaceTB/SmolLM3-3B-Base)**: Base pretrained model suitable for fine-tuning and basic text tasks.
+- **[SmolLM3-3B](https://huggingface.co/HuggingFaceTB/SmolLM3-3B)**: Instruction-tuned version optimized for assistant-like interactions.
+
+## 💬 SmolLM2
 [SmolLM2](https://huggingface.co/collections/HuggingFaceTB/smollm2-6723884218bcda64b34d7db9) is our family of compact language models available in three sizes:
 - **SmolLM2-135M**: Ultra-lightweight model for basic text tasks
 - **SmolLM2-360M**: Balanced model for general use
@@ -23,7 +27,7 @@ All models have instruction-tuned versions optimized for assistant-like interact
 ## Repository Structure
 ```
 smollm/
-├── text/               # SmolLM2 related code and resources
+├── text/              # SmolLM related code and resources
 ├── vision/            # SmolVLM related code and resources
 └── tools/             # Shared utilities and inference tools
     ├── smol_tools/    # Lightweight AI-powered tools
@@ -33,11 +37,11 @@ smollm/
 
 ## Getting Started
 
-### SmolLM2
+### SmolLM3
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-checkpoint = "HuggingFaceTB/SmolLM2-1.7B-Instruct"
+checkpoint = "HuggingFaceTB/SmolLM3-3B"
 tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 model = AutoModelForCausalLM.from_pretrained(checkpoint)
 
