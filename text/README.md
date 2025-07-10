@@ -1,3 +1,17 @@
+# SmolLM family
+## Table of Contents
+1. [SmolLM3](#smollm3)
+2. [SmolLM2](#smollm2)
+3. [Usage](#usage)
+    - [Transformers](#transformers)
+    - [Chat in TRL](#chat-in-trl)
+    - [Local inference](#local-inference)
+    - [Smol-tools](#smol-tools)
+4. [Pretraining](#pretraining)
+5. [Finetuning and Post-training](#finetuning-and-post-training)
+6. [Evaluation](#evaluation)
+7. [Data](#data)
+
 # SmolLM3
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/61c141342aac764ce1654e43/bUYixmNnbbeYN2tzMLQ9i.png)
 
@@ -19,17 +33,6 @@ SmolLM2 is a family of compact language models available in three size: 135M, 36
 
 In this section you can find everything related to the training of the SmolLM family: SmolLM, SmolLM2 and SmolLM3. This includes pretraining and finetuning code, data curation as well as evaluation. We also recommend [SmolCourse](https://github.com/huggingface/smol-course) for more resources on smol models and how to leverage SmolLM models.
 
-
-## Table of Contents
-1. [Usage](#usage)
-    - [Transformers](#transformers)
-    - [Chat in TRL](#chat-in-trl)
-    - [Local inference](#local-inference)
-    - [Smol-tools](#smol-tools)
-2. [Pretraining](#pretraining)
-3. [Finetuning & Post-training](#finetuning-&-posttraining)
-4. [Evaluation](#evaluation)
-5. [Data](#data)
 
 ## Usage
 Our most powerful model is `SmolLM3-3B`, which you can use as an assistant with `transformers`, `vllm`, `trl`, or using quantized versions with tools like `llama.cpp`, `MLX`, and `transformers.js`. For lighter applications, you can also use the smaller models `SmolLM2-360M` and`SmolLM2-135M`, which are suitable for on-device usage and can be integrated similarly.
@@ -123,8 +126,11 @@ Further instructions on how to use the tools can be found in the [smol-tools REA
 ## Pretraining
 You can find scripts for launching pretraining with [nanotron](https://github.com/huggingface/nanotron/) under [pretraining](./pretraining/README.md), we share the exact configs for training SmolLM, SmollM2 and SmollM3. Additionally we provide code for continual-pretraining on SmolLM2 and Llama3.2 3B using nanotron. The SmolLM2 nanotron checkpoints are available [on the hub](https://huggingface.co/HuggingFaceTB/SmolLM2-nanotron-ckpt) with their optimizer states. The SmolLM3
 
-## Finetuning & Post-training
+## Finetuning and Post-training
 You can find an example script to finetune SmolLM2 using `TRL` and `PEFT` in the `finetuning` folder. We also link to our post-training scripts for SmolLM2 and SmolLM3 using the alignment handbook. We also recommend [SmolCourse](https://github.com/huggingface/smol-course) for more resources on finetuning smol models and SmolLM2.
+
+## Evaluation
+We provide teh code for evaluating SmolLM2 and SmolLM3 under [evaluation](./data/README.md).
 
 ## Data
 We also provide the code for curating the SmolLM datasets in [data](./data/README.md), this includes FineWeb-Edu, FineMath and the [distilabel](https://github.com/argilla-io/distilabel) pipelines for SmolTalk.
