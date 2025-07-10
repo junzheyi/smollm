@@ -33,6 +33,9 @@ SmolLM2 is a family of compact language models available in three size: 135M, 36
 
 In this section you can find everything related to the training of the SmolLM family: SmolLM, SmolLM2 and SmolLM3. This includes pretraining and finetuning code, data curation as well as evaluation. We also recommend [SmolCourse](https://github.com/huggingface/smol-course) for more resources on smol models and how to leverage SmolLM models.
 
+- [Model](https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct)
+- [Paper](https://huggingface.co/papers/2502.02737)
+- [Collection](https://huggingface.co/collections/HuggingFaceTB/smollm2-6723884218bcda64b34d7db9)
 
 ## Usage
 Our most powerful model is `SmolLM3-3B`, which you can use as an assistant with `transformers`, `vllm`, `trl`, or using quantized versions with tools like `llama.cpp`, `MLX`, and `transformers.js`. For lighter applications, you can also use the smaller models `SmolLM2-360M` and`SmolLM2-135M`, which are suitable for on-device usage and can be integrated similarly.
