@@ -1,12 +1,11 @@
 # Smol Models 🤏
 
-Welcome to Smol Models, a family of efficient and lightweight AI models from Hugging Face. Our mission is to create powerful yet compact models, for text and vision, that can run effectively on-device while maintaining strong performance.
+Welcome to Smol Models, a family of efficient and lightweight AI models from Hugging Face. Our mission is to create fully open powerful yet compact models, for text and vision, that can run effectively on-device while maintaining strong performance.
 
 ## [NEW] SmolLM3 (Language Model)
 ![image](https://github.com/user-attachments/assets/2bf61ea2-8d2e-426b-ba40-0242d34325d2)
 
 Our 3B model outperforms Llama 3.2 3B and Qwen2.5 3B while staying competitive with larger 4B alternatives (Qwen3 & Gemma3). Beyond the performance numbers, we're sharing exactly how we built it using public datasets and training frameworks.
-
 
 Ressources:
 - [SmolLM3-Base](https://hf.co/HuggingFaceTB/SmolLM3-3B-Base)
