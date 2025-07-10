@@ -45,4 +45,4 @@ Following Qwen2.5-Math's approach, we removed samples with 13-gram overlaps agai
 
 ## Training the classifier
 
-Todo: share step 2 annotations and finetuning code.
+The code is similar to the [FineWeb-Edu](../fineweb-edu) pipeline.
