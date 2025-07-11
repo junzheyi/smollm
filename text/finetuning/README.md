@@ -1,7 +1,7 @@
-# Fine-tuning & Posttraining
+# Fine-tuning & Post-training
 
 ## SmolLM3-3B
-[TODO]
+[WIP] The post-training code for SmolLM3 is being added here: https://github.com/huggingface/alignment-handbook/pull/219
 
 ## SmolLM2 Instruct
 
