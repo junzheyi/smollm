@@ -16,7 +16,7 @@ data_stages:
       - /scratch/smollm3-data-part1/pes2o
       - /scratch/smollm3-data-part1/wiki
       - /scratch/smollm3-data-part1/stackexchange
-      - /scratch/smollm3-data-part1/fw2-fra
+      - /scratch/smollm3-data-part1/fw2-fra # we use FineWeb2-HQ for all the languages below except Hindi, Thai, Korean for which we use FineWeb2
       - /scratch/smollm3-data-part1/fw2-spa
       - /scratch/smollm3-data-part1/fw2-deu
       - /scratch/smollm3-data-part1/fw2-ita
@@ -32,22 +32,22 @@ data_stages:
       - /scratch/smollm3-data-part1/fw2-ell
       - /scratch/smollm3-data-part1/infiwebmath
       - /scratch/smollm3-data-part1/finemath
-      - /scratch/smollm3-data-part1/stack-edu-Python
-      - /scratch/smollm3-data-part1/stack-edu-Java
-      - /scratch/smollm3-data-part1/stack-edu-JavaScript
-      - /scratch/smollm3-data-part1/stack-edu-C
-      - /scratch/smollm3-data-part1/stack-edu-Cpp
-      - /scratch/smollm3-data-part1/stack-edu-C-Sharp
-      - /scratch/smollm3-data-part1/stack-edu-PHP
-      - /scratch/smollm3-data-part1/stack-edu-TypeScript
-      - /scratch/smollm3-data-part1/stack-edu-Swift
-      - /scratch/smollm3-data-part1/stack-edu-SQL
-      - /scratch/smollm3-data-part1/stack-edu-Ruby
-      - /scratch/smollm3-data-part1/stack-edu-Markdown
-      - /scratch/smollm3-data-part1/stack-edu-HTML
-      - /scratch/smollm3-data-part1/stack-edu-Rust
-      - /scratch/smollm3-data-part1/stack-edu-Go
-      - /scratch/smollm3-data-part1/stack-edu-Shell
+      - /scratch/smollm3-data-part1/stack-v2-Python 
+      - /scratch/smollm3-data-part1/stack-v2-Java
+      - /scratch/smollm3-data-part1/stack-v2-JavaScript
+      - /scratch/smollm3-data-part1/stack-v2-C
+      - /scratch/smollm3-data-part1/stack-v2-Cpp
+      - /scratch/smollm3-data-part1/stack-v2-C-Sharp
+      - /scratch/smollm3-data-part1/stack-v2-PHP
+      - /scratch/smollm3-data-part1/stack-v2-TypeScript
+      - /scratch/smollm3-data-part1/stack-v2-Swift
+      - /scratch/smollm3-data-part1/stack-v2-SQL
+      - /scratch/smollm3-data-part1/stack-v2-Ruby
+      - /scratch/smollm3-data-part1/stack-v2-Markdown
+      - /scratch/smollm3-data-part1/stack-v2-HTML
+      - /scratch/smollm3-data-part1/stack-v2-Rust
+      - /scratch/smollm3-data-part1/stack-v2-Go
+      - /scratch/smollm3-data-part1/stack-v2-Shell
       - /scratch/smollm3-data-part1/pull-requests
       - /scratch/smollm3-data-part1/kaggle
       - /scratch/smollm3-data-part1/jupyter-scripts
@@ -74,7 +74,7 @@ data_stages:
       - s3://smollm3/datasets/llama_tokenized-individual-chunks/fw2-ell/
       - s3://smollm3/datasets/llama_tokenized-individual-chunks/infiwebmath/
       - s3://smollm3/datasets/llama_tokenized-individual-chunks/finemath/
-      - s3://smollm3/datasets/llama_tokenized-individual-chunks/stack-edu-Python/
+      - s3://smollm3/datasets/llama_tokenized-individual-chunks/stack-edu-Python/ # we use stack v2 (StarCoder2data) data, just typo in s3 path names
       - s3://smollm3/datasets/llama_tokenized-individual-chunks/stack-edu-Java/
       - s3://smollm3/datasets/llama_tokenized-individual-chunks/stack-edu-JavaScript/
       - s3://smollm3/datasets/llama_tokenized-individual-chunks/stack-edu-C/
