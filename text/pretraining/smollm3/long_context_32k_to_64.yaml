@@ -18,7 +18,7 @@ data_stages:
       - /fsx/elie_bakouch/smollm3_training/1004-nn/data/tokenized_data_64k/short-context/mwiki
       - /fsx/elie_bakouch/smollm3_training/1004-nn/data/tokenized_data_64k/short-context/cosmopedia2
       - /fsx/elie_bakouch/smollm3_training/1004-nn/data/tokenized_data_64k/short-context/stackexchange
-      - /fsx/elie_bakouch/smollm3_training/1004-nn/data/tokenized_data_64k/short-context/fw2-hq-fra_Latn
+      - /fsx/elie_bakouch/smollm3_training/1004-nn/data/tokenized_data_64k/short-context/fw2-hq-fra_Latn  # we use FineWeb2-HQ for all the languages below except Hindi, Thai, Korean for which we use FineWeb2
       - /fsx/elie_bakouch/smollm3_training/1004-nn/data/tokenized_data_64k/short-context/fw2-hq-spa_Latn
       - /fsx/elie_bakouch/smollm3_training/1004-nn/data/tokenized_data_64k/short-context/fw2-hq-deu_Latn
       - /fsx/elie_bakouch/smollm3_training/1004-nn/data/tokenized_data_64k/short-context/fw2-hq-ita_Latn
@@ -39,7 +39,7 @@ data_stages:
       - /fsx/elie_bakouch/smollm3_training/1004-nn/data/tokenized_data_64k/short-context/megamath-web-pro
       - /fsx/elie_bakouch/smollm3_training/1004-nn/data/tokenized_data_64k/short-context/megamath-qa-qwen
       - /fsx/elie_bakouch/smollm3_training/1004-nn/data/tokenized_data_64k/short-context/megamath-text-code-block
-      - /fsx/elie_bakouch/smollm3_training/1004-nn/data/tokenized_data_64k/short-context/stack-edu-real-Python
+      - /fsx/elie_bakouch/smollm3_training/1004-nn/data/tokenized_data_64k/short-context/stack-edu-real-Python # Stack-Edu data
       - /fsx/elie_bakouch/smollm3_training/1004-nn/data/tokenized_data_64k/short-context/stack-edu-real-Java
       - /fsx/elie_bakouch/smollm3_training/1004-nn/data/tokenized_data_64k/short-context/stack-edu-real-JavaScript
       - /fsx/elie_bakouch/smollm3_training/1004-nn/data/tokenized_data_64k/short-context/stack-edu-real-C
