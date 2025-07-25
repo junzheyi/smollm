@@ -133,7 +133,8 @@ You can find scripts for launching pretraining with [nanotron](https://github.co
 You can find an example script to finetune SmolLM2 using `TRL` and `PEFT` in the `finetuning` folder. We also link to our post-training scripts for SmolLM2 and SmolLM3 using the alignment handbook. We also recommend [SmolCourse](https://github.com/huggingface/smol-course) for more resources on finetuning smol models and SmolLM2.
 
 ## Evaluation
-We provide teh code for evaluating SmolLM2 and SmolLM3 under [evaluation](./evaluation/README.md).
+
+We provide the code for evaluating SmolLM2 and SmolLM3 under [evaluation](./evaluation/README.md).
 
 ## Data
 We also provide the code for curating the SmolLM datasets in [data](./data/README.md), this includes FineWeb-Edu, FineMath and the [distilabel](https://github.com/argilla-io/distilabel) pipelines for SmolTalk.

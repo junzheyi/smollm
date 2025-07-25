@@ -25,44 +25,22 @@ VLLM_WORKER_MULTIPROC_METHOD=spawn lighteval vllm "model_name=Qwen/Qwen3-0.6B,dt
                 --save-details
 """
 from functools import partial
-from lighteval.metrics.metrics import Metrics, MetricCategory
+import numpy as np
+
+import lighteval.tasks.default_prompts as prompt
 from lighteval.metrics.dynamic_metrics import (
     loglikelihood_acc_metric,
     ExprExtractionConfig,
     LatexExtractionConfig,
     multilingual_extractive_match_metric,
 )
-from lighteval.metrics.normalizations import LogProbCharNorm, LogProbTokenNorm
-from lighteval.tasks.default_prompts import LETTER_INDICES
-import lighteval.tasks.default_prompts as prompt
-from lighteval.tasks.lighteval_task import LightevalTaskConfig
-from lighteval.tasks.multilingual.adapters import winogrand_adapter
-from lighteval.tasks.multilingual.utils.task_utils import get_metrics_for_formulation
-from lighteval.tasks.templates.continuation import get_continuation_prompt_function
-from lighteval.tasks.templates.hellaswag import get_hellaswag_prompt_function
-from lighteval.tasks.templates.multichoice import get_mcq_prompt_function
-from lighteval.tasks.templates.boolq import get_boolq_prompt_function
-from lighteval.tasks.templates.utils.formulation import (
-    CFFormulation,
-    HybridFormulation,
-    MCFFormulation,
-)
-from lighteval.utils.language import Language
-from lighteval.tasks.requests import Doc
-from lighteval.tasks.multilingual.tasks import TASKS_TABLE as ML_TASKS_TABLE
-
-import numpy as np
-from lighteval.metrics.dynamic_metrics import (
-    IndicesExtractionConfig,
-    multilingual_extractive_match_metric,
-)
-from lighteval.metrics.metrics import Metrics
+from lighteval.metrics.metrics import Metrics, MetricCategory
 from lighteval.metrics.metrics_sample import (
     JudgeLLM,
     PassAtK,
 )
+from lighteval.metrics.normalizations import LogProbCharNorm, LogProbTokenNorm
 from lighteval.metrics.utils.metric_utils import (
-    MetricCategory,
     MetricUseCase,
     SampleLevelMetric,
     SampleLevelMetricGrouping,
@@ -77,7 +55,19 @@ from lighteval.tasks.extended.mix_eval.main import (
     process_judge_response,
 )
 from lighteval.tasks.lighteval_task import LightevalTaskConfig
+from lighteval.tasks.multilingual.adapters import winogrand_adapter
+from lighteval.tasks.multilingual.tasks import TASKS_TABLE as ML_TASKS_TABLE
+from lighteval.tasks.multilingual.utils.task_utils import get_metrics_for_formulation
 from lighteval.tasks.requests import Doc
+from lighteval.tasks.templates.boolq import get_boolq_prompt_function
+from lighteval.tasks.templates.continuation import get_continuation_prompt_function
+from lighteval.tasks.templates.hellaswag import get_hellaswag_prompt_function
+from lighteval.tasks.templates.multichoice import get_mcq_prompt_function
+from lighteval.tasks.templates.utils.formulation import (
+    CFFormulation,
+    HybridFormulation,
+    MCFFormulation,
+)
 from lighteval.utils.language import Language
 from lighteval.utils.utils import remove_reasoning_tags
 
