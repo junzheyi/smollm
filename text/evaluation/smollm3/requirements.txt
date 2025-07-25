@@ -8,7 +8,7 @@ huggingface-hub==0.33.0
 jieba==0.42.1
 langdetect==1.0.9
 latex2sympy2-extended==1.0.6
-lighteval @ git+https://github.com/huggingface/lighteval@2788496c3ef9973a24c7d8b87ee5b2cceb430872
+lighteval[extended_tasks,multilingual] @ git+https://github.com/huggingface/lighteval.git@2788496c3ef9973a24c7d8b87ee5b2cceb430872
 more-itertools==10.7.0
 ninja==1.11.1.4
 nltk==3.9.1
