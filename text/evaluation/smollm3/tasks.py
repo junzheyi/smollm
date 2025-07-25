@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Custom evaluation tasks for LightEval. We need to use custom tasks for these benchmarks because many of the pre-existing tasks in LightEval are designed for base models and thus we must adapt the prompt and metrics to the zero-shot generative case.
+"""Custom evaluation tasks for LightEval. We need to use custom tasks for these benchmarks because many of the pre-existing tasks in LightEval are designed for different configurations or base models and thus we must adapt the prompt and metrics to the zero-shot generative case.
 
 Usage:
 
@@ -492,13 +492,6 @@ TASKS_TABLE.extend(math_tasks)
 REASONING_TAG_PAIRS = [
     ("<think>", "</think>"),
 ]
-
-SMOLLM3_LANGS = ["deu", "fra", "ita", "por", "spa"]
-
-###############
-# Global MMLU #
-###############
-GLOBAL_MMLU_TASKS_LIST = ",".join(f"global_mmlu_instruct_{lang}" for lang in SMOLLM3_LANGS)
 
 ###########
 # MIXEVAL #
