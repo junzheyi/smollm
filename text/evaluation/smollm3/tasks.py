@@ -16,13 +16,12 @@
 
 Usage:
 
-VLLM_WORKER_MULTIPROC_METHOD=spawn lighteval vllm "model_name=Qwen/Qwen3-0.6B,dtype=bfloat16,max_model_length=32768,gpu_memory_utilization=0.8,generation_parameters={max_new_tokens:32768,temperature:0.6,top_p:0.95}" \
-                "custom|bbh:boolean_expressions|0|0,
-                 custom|bbh:causal_judgement|0|0" \
-                --use-chat-template \
-                --output-dir data/eval_results/ \
-                --custom-tasks trl/internal/lighteval_tasks.py \
-                --save-details
+lighteval vllm "model_name=HuggingFaceTB/SmolLM3-3B,dtype=bfloat16,max_model_length=32768,gpu_memory_utilization=0.8,generation_parameters={max_new_tokens:32768,temperature:0.6,top_p:0.95}" \
+    "custom|gsm_plus|0|0,custom|mixeval_hard|0|0" \
+    --use-chat-template \
+    --output-dir evals/ \
+    --custom-tasks tasks.py \
+    --save-details
 """
 from functools import partial
 import numpy as np
@@ -37,12 +36,10 @@ from lighteval.metrics.dynamic_metrics import (
 from lighteval.metrics.metrics import Metrics, MetricCategory
 from lighteval.metrics.metrics_sample import (
     JudgeLLM,
-    PassAtK,
 )
 from lighteval.metrics.normalizations import LogProbCharNorm, LogProbTokenNorm
 from lighteval.metrics.utils.metric_utils import (
     MetricUseCase,
-    SampleLevelMetric,
     SampleLevelMetricGrouping,
 )
 from lighteval.tasks.default_prompts import LETTER_INDICES
