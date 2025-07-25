@@ -1,33 +1,79 @@
+# Copyright 2020-2025 The HuggingFace Team. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""Custom evaluation tasks for LightEval. We need to use custom tasks for these benchmarks because many of the pre-existing tasks in LightEval are designed for different configurations or base models and thus we must adapt the prompt and metrics to the zero-shot generative case.
+
+Usage:
+
+lighteval vllm "model_name=HuggingFaceTB/SmolLM3-3B,dtype=bfloat16,max_model_length=32768,gpu_memory_utilization=0.8,generation_parameters={max_new_tokens:32768,temperature:0.6,top_p:0.95}" \
+    "custom|gsm_plus|0|0,custom|mixeval_hard|0|0" \
+    --use-chat-template \
+    --output-dir evals/ \
+    --custom-tasks tasks.py \
+    --save-details
+"""
 from functools import partial
-from lighteval.metrics.metrics import Metrics, MetricCategory
+import numpy as np
+
+import lighteval.tasks.default_prompts as prompt
 from lighteval.metrics.dynamic_metrics import (
     loglikelihood_acc_metric,
     ExprExtractionConfig,
     LatexExtractionConfig,
     multilingual_extractive_match_metric,
 )
+from lighteval.metrics.metrics import Metrics, MetricCategory
+from lighteval.metrics.metrics_sample import (
+    JudgeLLM,
+)
 from lighteval.metrics.normalizations import LogProbCharNorm, LogProbTokenNorm
+from lighteval.metrics.utils.metric_utils import (
+    MetricUseCase,
+    SampleLevelMetricGrouping,
+)
 from lighteval.tasks.default_prompts import LETTER_INDICES
-import lighteval.tasks.default_prompts as prompt
+from lighteval.tasks.extended.mix_eval.main import (
+    flow_judge_for_freeform_template,
+    flow_judge_for_multichoice_template,
+    mean_dv_5,
+    mixeval_freeform_prompt,
+    mixeval_multichoice_prompt,
+    process_judge_response,
+)
 from lighteval.tasks.lighteval_task import LightevalTaskConfig
 from lighteval.tasks.multilingual.adapters import winogrand_adapter
+from lighteval.tasks.multilingual.tasks import TASKS_TABLE as ML_TASKS_TABLE
 from lighteval.tasks.multilingual.utils.task_utils import get_metrics_for_formulation
+from lighteval.tasks.requests import Doc
+from lighteval.tasks.templates.boolq import get_boolq_prompt_function
 from lighteval.tasks.templates.continuation import get_continuation_prompt_function
 from lighteval.tasks.templates.hellaswag import get_hellaswag_prompt_function
 from lighteval.tasks.templates.multichoice import get_mcq_prompt_function
-from lighteval.tasks.templates.boolq import get_boolq_prompt_function
 from lighteval.tasks.templates.utils.formulation import (
     CFFormulation,
     HybridFormulation,
     MCFFormulation,
 )
 from lighteval.utils.language import Language
-from lighteval.tasks.requests import Doc
-from lighteval.tasks.multilingual.tasks import TASKS_TABLE as ML_TASKS_TABLE
+from lighteval.utils.utils import remove_reasoning_tags
 
 TASKS_TABLE = []
 TASKS_TABLE.extend(ML_TASKS_TABLE)
 
+#------------------
+# BASE MODEL EVALS
+#------------------
 qa_metrics = [
     loglikelihood_acc_metric(normalization=LogProbTokenNorm()),
     loglikelihood_acc_metric(normalization=LogProbCharNorm()),
@@ -439,6 +485,232 @@ math_tasks = [
     ]
 ]
 TASKS_TABLE.extend(math_tasks)
+
+#---------------------
+# INSTRUCT MODEL EVALS
+#---------------------
+REASONING_TAG_PAIRS = [
+    ("<think>", "</think>"),
+]
+
+###########
+# MIXEVAL #
+###########
+"""The main differences between this implementation and LightEval's is that:
+
+- we don't use GPT-3.5-Turbo among the list of judges, but instead use flowaicom/Flow-Judge-v0.1.
+- we strip out the reasoning block from the predictions before passing them to the judge.
+- we left-truncate the predictions to fit within the 2048 token limit of the judge model.
+- we specify max_tokens=6144 for the judge to fit within the max context size of 8192 tokens.
+"""
+
+MIXEVAL_EASY_TASKS_LIST = ",".join(["mixeval_easy:freeform", "mixeval_easy:multichoice"])
+MIXEVAL_HARD_TASKS_LIST = ",".join(["mixeval_hard:freeform", "mixeval_hard:multichoice"])
+
+MAX_INPUT_TOKENS = 2048  # LightEval judges have max_model_len=8192 and require space for a long judge prompt. We allow 2048 tokens for the prediction to fit within the limit.
+
+
+class JudgeLLMMixEval(JudgeLLM):
+    def compute(self, sample_ids: list[str], responses: list, formatted_docs: list[Doc], **kwargs) -> dict[str, float]:
+        """
+        Compute the score of a generative task using a llm as a judge.
+        The generative task can be multiturn with 2 turns max, in that case, we
+        return scores for turn 1 and 2. Also returns user_prompt and judgement
+        which are ignored later by the aggregator.
+        """
+        questions = [formatted_doc.specific["question"] for formatted_doc in formatted_docs]
+        options = [formatted_doc.choices for formatted_doc in formatted_docs]
+        golds = [formatted_doc.get_golds()[0] for formatted_doc in formatted_docs]
+
+        predictions = []
+        num_truncated = 0
+        for response in responses:
+            prediction_text = remove_reasoning_tags(response[0].result[0], tag_pairs=REASONING_TAG_PAIRS).strip()
+
+            # Left-truncate the prediction to fit within the max input tokens for the judge model.
+            if len(response[0].generated_tokens[0]) > MAX_INPUT_TOKENS:
+                # One token is worth ~4 characters, so we estimate the number of characters to truncate.
+                prediction_text = f"{prediction_text[-MAX_INPUT_TOKENS * 4 :]}"
+
+            predictions.append(prediction_text)
+
+        print(f"Number of predictions truncated to fit within {MAX_INPUT_TOKENS} tokens: {num_truncated}")  # noqa: T201
+
+        scores, messages, judgements = self.judge.evaluate_answer_batch(questions, predictions, options, golds)
+
+        metrics = []
+        for i in range(len(sample_ids)):
+            metrics.append(
+                {
+                    f"judge_score_{self.short_judge_name}": scores[i],
+                    f"user_prompt_{self.short_judge_name}": messages[i],
+                    f"judgement_{self.short_judge_name}": judgements[i],
+                }
+            )
+
+        return metrics
+
+
+llm_judge_mixeval_multichoice_flow_judge = SampleLevelMetricGrouping(
+    metric_name=["llm_judge_mixeval_flow"],
+    higher_is_better={"judge_score_flow": True},
+    category=MetricCategory.LLM_AS_JUDGE,
+    use_case=MetricUseCase.SUMMARIZATION,
+    sample_level_fn=JudgeLLMMixEval(
+        judge_model_name="flowaicom/Flow-Judge-v0.1",
+        template=flow_judge_for_multichoice_template,
+        process_judge_response=process_judge_response,
+        judge_backend="vllm",
+        short_judge_name="flow",
+        max_tokens=1024,  # Flow judge has a context length limit of 8192 tokens and 2048 are reserved for the input
+    ).compute,
+    corpus_level_fn={
+        "judge_score_flow": np.mean,
+    },
+)
+
+
+llm_judge_mixeval_freeform_flow_judge = SampleLevelMetricGrouping(
+    metric_name=["llm_judge_mixeval_flow"],
+    higher_is_better={"judge_score": True},
+    category=MetricCategory.LLM_AS_JUDGE,
+    use_case=MetricUseCase.SUMMARIZATION,
+    sample_level_fn=JudgeLLMMixEval(
+        judge_model_name="flowaicom/Flow-Judge-v0.1",
+        template=flow_judge_for_freeform_template,
+        process_judge_response=process_judge_response,
+        judge_backend="vllm",
+        short_judge_name="flow",
+        max_tokens=1024,  # Flow judge has a context length limit of 8192 tokens and 2048 are reserved for the input
+    ).compute,
+    corpus_level_fn={
+        "judge_score_flow": mean_dv_5,
+    },
+)
+
+mixeval_freeform_easy = LightevalTaskConfig(
+    name="mixeval_easy:freeform",
+    prompt_function=mixeval_freeform_prompt,
+    suite=["custom"],
+    hf_repo="MixEval/MixEval",
+    hf_subset="MixEval",
+    metric=[llm_judge_mixeval_freeform_flow_judge],
+    hf_avail_splits=["free_form"],
+    evaluation_splits=["free_form"],
+    few_shots_split=None,
+    few_shots_select="random_sampling",
+    generation_size=100,  # overridden at runtime by the generation parameters
+    stop_sequence=[],  # no stop sequence, will use eot token
+    version="0.1",
+)
+
+mixeval_multichoice_easy = LightevalTaskConfig(
+    name="mixeval_easy:multichoice",
+    prompt_function=mixeval_multichoice_prompt,
+    suite=["custom"],
+    hf_repo="MixEval/MixEval",
+    hf_subset="MixEval",
+    metric=[llm_judge_mixeval_multichoice_flow_judge],
+    hf_avail_splits=["multiple_choice"],
+    evaluation_splits=["multiple_choice"],
+    few_shots_split=None,
+    few_shots_select="random_sampling",
+    generation_size=100,  # overridden at runtime by the generation parameters
+    stop_sequence=[],  # no stop sequence, will use eot token
+    version="0.1",
+)
+
+mixeval_freeform_hard = LightevalTaskConfig(
+    name="mixeval_hard:freeform",
+    prompt_function=mixeval_freeform_prompt,
+    suite=["custom"],
+    hf_repo="MixEval/MixEval",
+    hf_subset="MixEval_Hard",
+    metric=[llm_judge_mixeval_multichoice_flow_judge],
+    hf_avail_splits=["free_form"],
+    evaluation_splits=["free_form"],
+    few_shots_split=None,
+    few_shots_select="random_sampling",
+    generation_size=100,  # overridden at runtime by the generation parameters
+    stop_sequence=[],  # no stop sequence, will use eot token
+    version="0.1",
+)
+
+
+mixeval_multichoice_hard = LightevalTaskConfig(
+    name="mixeval_hard:multichoice",
+    prompt_function=mixeval_multichoice_prompt,
+    suite=["custom"],
+    hf_repo="MixEval/MixEval",
+    hf_subset="MixEval_Hard",
+    metric=[llm_judge_mixeval_multichoice_flow_judge],
+    hf_avail_splits=["multiple_choice"],
+    evaluation_splits=["multiple_choice"],
+    few_shots_split=None,
+    few_shots_select="random_sampling",
+    generation_size=100,  # overridden at runtime by the generation parameters
+    stop_sequence=[],  # no stop sequence, will use eot token
+    version="0.1",
+)
+
+TASKS_TABLE.extend(
+    [
+        mixeval_multichoice_easy,
+        mixeval_freeform_easy,
+        mixeval_multichoice_hard,
+        mixeval_freeform_hard,
+    ]
+)
+
+
+###########
+# GSMPlus #
+###########
+def gsm_plus_prompt(line, task_name: str = None):
+    # Prompt template adapted from
+    # - simple-evals: https://github.com/openai/simple-evals/blob/6e84f4e2aed6b60f6a0c7b8f06bbbf4bfde72e58/math_eval.py#L17
+    # - Llama 3: https://huggingface.co/datasets/meta-llama/Llama-3.2-1B-Instruct-evals/viewer/Llama-3.2-1B-Instruct-evals__math__details?views%5B%5D=llama_32_1b_instruct_evals__math__details
+    # Note that it is important to have the final answer in a box for math-verify to work correctly
+    MATH_QUERY_TEMPLATE = """
+Solve the following math problem efficiently and clearly.  The last line of your response should be of the following format: 'Therefore, the final answer is: $\\boxed{{ANSWER}}$. I hope it is correct' (without quotes) where ANSWER is just the final number or expression that solves the problem. Think step by step before answering.
+
+{Question}
+""".strip()
+
+    # Some prompts require critical thinking (around 1k/10k), we skip them as
+    # they are a bit trickier to eval with regular text extraction.
+    if line["perturbation_type"] == "critical thinking":
+        return None
+
+    return Doc(
+        task_name=task_name,
+        query=MATH_QUERY_TEMPLATE.format(Question=line["question"]),
+        choices=[line["answer"]],
+        gold_index=0,
+    )
+
+
+gsm_plus = LightevalTaskConfig(
+    name="gsm_plus",
+    suite=["custom"],
+    prompt_function=gsm_plus_prompt,
+    hf_repo="qintongli/GSM-Plus",
+    hf_subset="default",
+    hf_avail_splits=["testmini"],
+    evaluation_splits=["testmini"],
+    few_shots_split=None,
+    few_shots_select=None,
+    generation_size=None,
+    metric=[
+        Metrics.math_pass_at_1_1n,
+    ],
+    stop_sequence=None,
+    trust_dataset=True,
+    version=0,
+)
+
+TASKS_TABLE.append(gsm_plus)
+
 
 # remove pmi_norm from all tasks to save on double inference
 for task in TASKS_TABLE:
