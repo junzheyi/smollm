@@ -100,8 +100,8 @@ messages = [
 ## Resources
 
 ### Documentation
-
 - [SmolLM3 Documentation](text/README.md)
+- [SmolLM2 paper](https://arxiv.org/abs/2502.02737v1)
 - [SmolVLM Documentation](vision/README.md)
 - [Local Inference Guide](tools/README.md)
 
