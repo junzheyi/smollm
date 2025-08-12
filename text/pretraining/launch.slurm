@@ -1,15 +1,15 @@
 #!/bin/bash
-#SBATCH --job-name=smollm1-135M
-#SBATCH --nodes=4
+#SBATCH --job-name=smollm3-stage1
+#SBATCH --nodes=48
 #SBATCH --gres=gpu:8
-#SBATCH --qos=high
+#SBATCH --qos=normal
 #SBATCH --output=./logs/train-%j.out
 #SBATCH --error=./logs/train-%j.err
 
 set -e
 
 TRAINER_PYTHON_FILE="run_train.py"
-CONFIG_PATH_YAML="smollm1/config_smollm1_135M.yaml"
+CONFIG_PATH_YAML="smollm3/stage1_8T.yaml"
 nvidia-smi
 
 # Show some environment variables
