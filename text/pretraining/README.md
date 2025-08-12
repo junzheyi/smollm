@@ -15,7 +15,7 @@ All these changes were validated through ablations using the same 3B architectur
 
 Training Configuration: We use a global batch size of 2.36M tokens with 4096 sequence length, a learning rate of 2e-4, and the AdamW optimizer (beta1: 0.9, beta2: 0.95) with weight decay of 0.1 and gradient clipping of 1. We use the WSD (Warmup-Stable-Decay) scheduler, with 2000  warmup steps, and a linear decay to 0 in the final 10% training steps. We use [nanotron](https://github.com/huggingface/nanotron) framework for the training, [datatrove](https://github.com/huggingface/datatrove) for data processing and [lighteval](https://github.com/huggingface/lighteval) for evaluation. The model was trained on 384 H100 GPUs for 24 days. You can see the distributed training setup in the following figure.
 
-You can find our full training logs here: https://wandb.ai/huggingface/SmolLM3-training-logs
+You can find our full training logs here: https://wandb.ai/huggingface/SmolLM3-training-logs?nw=nwusereliebak
 
 ## Setup
 
