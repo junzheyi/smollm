@@ -10,48 +10,50 @@ checkpoints:
 data_stages:
 - data:
     dataset:
+    # All the dataset can be find here https://huggingface.co/collections/HuggingFaceTB/smollm3-pretraining-datasets-685a7353fdc01aecde51b1d9
       dataset_read_path:
-      - /scratch/smollm3-data-part1/fineweb-edu
-      - /scratch/smollm3-data-part1/dclm
-      - /scratch/smollm3-data-part1/pes2o
-      - /scratch/smollm3-data-part1/wiki
-      - /scratch/smollm3-data-part1/stackexchange
-      - /scratch/smollm3-data-part1/fw2-fra # we use FineWeb2-HQ for all the languages below except Hindi, Thai, Korean for which we use FineWeb2
-      - /scratch/smollm3-data-part1/fw2-spa
-      - /scratch/smollm3-data-part1/fw2-deu
-      - /scratch/smollm3-data-part1/fw2-ita
-      - /scratch/smollm3-data-part1/fw2-por
-      - /scratch/smollm3-data-part1/fw2-cmn
-      - /scratch/smollm3-data-part1/fw2-rus
-      - /scratch/smollm3-data-part1/fw2-fas
-      - /scratch/smollm3-data-part1/fw2-jpn
-      - /scratch/smollm3-data-part1/fw2-kor
-      - /scratch/smollm3-data-part1/fw2-hin
-      - /scratch/smollm3-data-part1/fw2-tha
-      - /scratch/smollm3-data-part1/fw2-vie
-      - /scratch/smollm3-data-part1/fw2-ell
-      - /scratch/smollm3-data-part1/infiwebmath
-      - /scratch/smollm3-data-part1/finemath
-      - /scratch/smollm3-data-part1/stack-v2-Python 
-      - /scratch/smollm3-data-part1/stack-v2-Java
-      - /scratch/smollm3-data-part1/stack-v2-JavaScript
-      - /scratch/smollm3-data-part1/stack-v2-C
-      - /scratch/smollm3-data-part1/stack-v2-Cpp
-      - /scratch/smollm3-data-part1/stack-v2-C-Sharp
-      - /scratch/smollm3-data-part1/stack-v2-PHP
-      - /scratch/smollm3-data-part1/stack-v2-TypeScript
-      - /scratch/smollm3-data-part1/stack-v2-Swift
-      - /scratch/smollm3-data-part1/stack-v2-SQL
-      - /scratch/smollm3-data-part1/stack-v2-Ruby
-      - /scratch/smollm3-data-part1/stack-v2-Markdown
-      - /scratch/smollm3-data-part1/stack-v2-HTML
-      - /scratch/smollm3-data-part1/stack-v2-Rust
-      - /scratch/smollm3-data-part1/stack-v2-Go
-      - /scratch/smollm3-data-part1/stack-v2-Shell
-      - /scratch/smollm3-data-part1/pull-requests
-      - /scratch/smollm3-data-part1/kaggle
-      - /scratch/smollm3-data-part1/jupyter-scripts
-      - /scratch/smollm3-data-part1/github-issues
+      - /scratch/smollm3-data-part1/fineweb-edu # https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu
+      - /scratch/smollm3-data-part1/dclm # https://huggingface.co/datasets/mlfoundations/dclm-baseline-1.0
+      - /scratch/smollm3-data-part1/pes2o # https://huggingface.co/datasets/allenai/dolmino-mix-1124/viewer/pes2o
+      - /scratch/smollm3-data-part1/wiki # https://huggingface.co/datasets/allenai/dolmino-mix-1124/viewer/wiki
+      - /scratch/smollm3-data-part1/stackexchange # https://huggingface.co/datasets/allenai/dolmino-mix-1124/viewer/stackexchange
+      # we use FineWeb2-HQ for all the languages below except Hindi, Thai, Korean for which we use FineWeb2
+      - /scratch/smollm3-data-part1/fw2-fra # https://huggingface.co/datasets/epfml/FineWeb2-HQ/viewer/hun_Latn
+      - /scratch/smollm3-data-part1/fw2-spa # https://huggingface.co/datasets/epfml/FineWeb2-HQ/viewer/spa_Latn
+      - /scratch/smollm3-data-part1/fw2-deu # https://huggingface.co/datasets/epfml/FineWeb2-HQ/viewer/deu_Latn
+      - /scratch/smollm3-data-part1/fw2-ita # https://huggingface.co/datasets/epfml/FineWeb2-HQ/viewer/ita_Latn
+      - /scratch/smollm3-data-part1/fw2-por # https://huggingface.co/datasets/epfml/FineWeb2-HQ/viewer/por_Latn
+      - /scratch/smollm3-data-part1/fw2-cmn # https://huggingface.co/datasets/epfml/FineWeb2-HQ/viewer/cmn_Hani
+      - /scratch/smollm3-data-part1/fw2-rus # https://huggingface.co/datasets/epfml/FineWeb2-HQ/viewer/rus_Cyrl
+      - /scratch/smollm3-data-part1/fw2-fas # https://huggingface.co/datasets/epfml/FineWeb2-HQ/viewer/fas_Arab
+      - /scratch/smollm3-data-part1/fw2-jpn # https://huggingface.co/datasets/epfml/FineWeb2-HQ/viewer/jpn_Jpan
+      - /scratch/smollm3-data-part1/fw2-kor # https://huggingface.co/datasets/HuggingFaceFW/fineweb-2/viewer/kor_Hang
+      - /scratch/smollm3-data-part1/fw2-hin # https://huggingface.co/datasets/HuggingFaceFW/fineweb-2/viewer/hin_Deva
+      - /scratch/smollm3-data-part1/fw2-tha # https://huggingface.co/datasets/HuggingFaceFW/fineweb-2/viewer/tha_Thai
+      - /scratch/smollm3-data-part1/fw2-vie # https://huggingface.co/datasets/epfml/FineWeb2-HQ/viewer/vie_Latn
+      - /scratch/smollm3-data-part1/fw2-ell # https://huggingface.co/datasets/epfml/FineWeb2-HQ/viewer/ell_Grek
+      - /scratch/smollm3-data-part1/infiwebmath # https://huggingface.co/datasets/HuggingFaceTB/finemath/viewer/infiwebmath-3plus
+      - /scratch/smollm3-data-part1/finemath # https://huggingface.co/datasets/HuggingFaceTB/finemath/viewer/finemath-3plus
+      - /scratch/smollm3-data-part1/stack-v2-Python # https://huggingface.co/datasets/bigcode/the-stack-v2
+      - /scratch/smollm3-data-part1/stack-v2-Java # https://huggingface.co/datasets/bigcode/the-stack-v2
+      - /scratch/smollm3-data-part1/stack-v2-JavaScript # https://huggingface.co/datasets/bigcode/the-stack-v2
+      - /scratch/smollm3-data-part1/stack-v2-C # https://huggingface.co/datasets/bigcode/the-stack-v2
+      - /scratch/smollm3-data-part1/stack-v2-Cpp # https://huggingface.co/datasets/bigcode/the-stack-v2
+      - /scratch/smollm3-data-part1/stack-v2-C-Sharp # https://huggingface.co/datasets/bigcode/the-stack-v2
+      - /scratch/smollm3-data-part1/stack-v2-PHP # https://huggingface.co/datasets/bigcode/the-stack-v2
+      - /scratch/smollm3-data-part1/stack-v2-TypeScript  # https://huggingface.co/datasets/bigcode/the-stack-v2
+      - /scratch/smollm3-data-part1/stack-v2-Swift # https://huggingface.co/datasets/bigcode/the-stack-v2
+      - /scratch/smollm3-data-part1/stack-v2-SQL # https://huggingface.co/datasets/bigcode/the-stack-v2
+      - /scratch/smollm3-data-part1/stack-v2-Ruby # https://huggingface.co/datasets/bigcode/the-stack-v2
+      - /scratch/smollm3-data-part1/stack-v2-Markdown # https://huggingface.co/datasets/bigcode/the-stack-v2
+      - /scratch/smollm3-data-part1/stack-v2-HTML # https://huggingface.co/datasets/bigcode/the-stack-v2
+      - /scratch/smollm3-data-part1/stack-v2-Rust # https://huggingface.co/datasets/bigcode/the-stack-v2
+      - /scratch/smollm3-data-part1/stack-v2-Go # https://huggingface.co/datasets/bigcode/the-stack-v2
+      - /scratch/smollm3-data-part1/stack-v2-Shell # https://huggingface.co/datasets/bigcode/the-stack-v2
+      - /scratch/smollm3-data-part1/pull-requests # https://huggingface.co/datasets/bigcode/the-stack-v2
+      - /scratch/smollm3-data-part1/kaggle # https://huggingface.co/datasets/bigcode/the-stack-v2
+      - /scratch/smollm3-data-part1/jupyter-scripts # https://huggingface.co/datasets/bigcode/the-stack-v2
+      - /scratch/smollm3-data-part1/github-issues # https://huggingface.co/datasets/bigcode/the-stack-v2
       dataset_folder:
       - s3://smollm3/datasets/llama_tokenized-global-chunks/fineweb-edu/fineweb-edu/
       - s3://smollm3/datasets/llama_tokenized-global-chunks/dclm/dclm/
