@@ -17,5 +17,5 @@ jobs:
       - name: Secret Scanning
         uses: trufflesecurity/trufflehog@main
         with:
-          # Skip scanning for JSONL files since they are datasets
-          extra_args: --debug --exclude-globs="**.jsonl"
+          # exclude buggy postgres detector that is causing false positives and not relevant to our codebase
+        extra_args: --results=verified,unknown --exclude-detectors=postgres
